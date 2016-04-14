@@ -49,4 +49,4 @@ for container in $mysql_containers; do
 done
 
 echo "Erasing backups over $MAX_BACKUP_AGE days:"
-find $LOCAL_BACKUP_DIR -print -ctime +$MAX_BACKUP_AGE -exec rm -rf {} \;
+find $LOCAL_BACKUP_DIR -ctime +$MAX_BACKUP_AGE -exec rm -rf {} \;
