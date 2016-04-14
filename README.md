@@ -4,8 +4,8 @@ container running on the local host that has "mysql" in it's container
 name. For each container, it will attempt to get a list of databases,
 and run mysql_dump against each one.
 
-This script has been designed to work with the (Offical MySQL Docker
-images)[https://hub.docker.com/_/mysql/], using the supported
+This script has been designed to work with the [Offical MySQL Docker
+images](https://hub.docker.com/_/mysql/), using the supported
 environment variable MYSQL_ROOT_PASSWORD to set the server's root
 password. In the future it may support other methods of determining
 mysql server authentication details.
