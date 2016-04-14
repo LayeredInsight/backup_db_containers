@@ -23,6 +23,15 @@ chmod 755 /usr/local/bin/
 ...and then review the constants set in each to see if they fit 
 your needs or need any modification.
 
+After you're set up, running backup_mysql_containers.sh will find
+a list of containers, copy backup_mysql_databases.sh into it, and
+then run backups as necessary, cleaning up afterwards.
+
+When all's said and done, backups will be placed in $LOCAL_BACKUP_DIR,
+which is /data01/backups by default. 
+
+Old backups will be deleted - the default value is backups older than 30 days.
+
 ## Scheduling
 For the moment, the periodical execution of the backup scripts is
 left as an exercise for the reader. I'm currently using a cronjob
