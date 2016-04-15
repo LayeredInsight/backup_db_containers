@@ -27,7 +27,7 @@ MAX_BACKUP_AGE=30               # Max backup age, in days
 MYSQL_HOME="/var/lib/mysql"
 BACKUP_HOME="$MYSQL_HOME/backups"
 LOCAL_BACKUP_DIR="/data01/backups"
-DATE=`date +%Y-%m-%d`
+DATE=`date +%Y%m%d%H%M`
 
 # Presuming if a container has "mysql" in the name, it's...running a MySQL server.
 # TODO: would be nice to optionally search for containers with a mysql label.
