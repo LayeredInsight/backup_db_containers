@@ -41,7 +41,7 @@ for container in $mysql_containers; do
   echo "Running backups:"
   docker exec $container sh -c "/$BACKUP_SCRIPT_NAME $mysql_backup_dir"
   echo "Extracting backups from container"
-  docker cp $container:$mysql_backup_dir $LOCAL_BACKUP_DIR
+  docker cp $container:$mysql_backup_dir $LOCAL_BACKUP_DIR/$container-$DATE
   echo "Removing backup from container"
   docker exec $container sh -c "rm -r $mysql_backup_dir"
   echo "Removing backup script from container"
