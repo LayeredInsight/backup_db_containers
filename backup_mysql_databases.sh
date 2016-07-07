@@ -23,7 +23,7 @@
 MYSQLHOME=/var/lib/mysql
 MYSQLDUMP=/usr/bin/mysqldump
 MYSQLUSER=root
-DUMP_OPTIONS="-u $MYSQLUSER --password=$MYSQL_ROOT_PASSWORD --opt --compress --lock-tables"
+DUMP_OPTIONS="-u $MYSQLUSER --password=$MYSQL_ROOT_PASSWORD --opt --compress --single-transaction"
 DATE=`date +%Y-%m-%d`
 
 if [ $# -gt 0 ]; then
