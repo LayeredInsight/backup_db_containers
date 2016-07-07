@@ -42,6 +42,5 @@ fi
 mkdir -p $BACKUP_DIR
 for dbname in $DATABASES ; do
   echo "Backing up $dbname"
-  $MYSQLDUMP $DUMP_OPTIONS $dbname > $BACKUP_DIR/$dbname.backup
-  gzip $BACKUP_DIR/$dbname.backup
+  $MYSQLDUMP $DUMP_OPTIONS $dbname | gzip > $BACKUP_DIR/$dbname.backup.gz
 done
