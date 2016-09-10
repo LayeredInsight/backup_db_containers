@@ -23,12 +23,17 @@
 MYSQL_CONTAINER_KEYWORD="mysql"       # In case you name your containers "db-" etc
 MYSQL_BACKUP_SCRIPT="/usr/local/bin/backup_mysql_databases.sh"
 MYSQL_BACKUP_SCRIPT_NAME=`basename $MYSQL_BACKUP_SCRIPT`
+MYSQL_HOME="/var/lib/mysql"
+MYSQL_BACKUP_HOME="$MYSQL_HOME/backups"
 MONGO_CONTAINER_KEYWORD="mongo"
 MONGO_BACKUP_SCRIPT="/usr/local/bin/backup_mongo_databases.sh"
 MONGO_BACKUP_SCRIPT_NAME=`basename $MONGO_BACKUP_SCRIPT`
+PGSQL_CONTAINER_KEYWORD="postgres"
+PGSQL_BACKUP_SCRIPT="/usr/local/bin/backup_pgsql_databases.sh"
+PGSQL_BACKUP_SCRIPT_NAME=`basename $PGSQL_BACKUP_SCRIPT`
+PGSQL_HOME="/var/lib/postgresql"
+PGSQL_BACKUP_HOME="$PGSQL_HOME/backups"
 MAX_BACKUP_AGE=30               # Max backup age, in days
-MYSQL_HOME="/var/lib/mysql"
-MYSQL_BACKUP_HOME="$MYSQL_HOME/backups"
 LOCAL_BACKUP_DIR="/data01/backups"
 DATE=`date +%Y%m%d%H%M`
 
@@ -73,7 +78,29 @@ backup_mongo_containers() {
   done
 }
 
+backup_pgsql_containers() {
+  # Presuming if a container has $PGSQL_CONTAINER_KEYWORD in the name,
+  # it's running a postgres server.
+  pgsql_containers=`docker ps --filter name=$PGSQL_CONTAINER_KEYWORD --filter status=running |awk '{if(NR>1) print $NF}'`
+
+  for container in $pgsql_containers; do
+    echo "Backing up postgres databases on $container:"
+    pgsql_backup_dir="$PGSQL_BACKUP_HOME/$container-$DATE"
+    echo "Copying pgsql backup script to container"
+    docker cp $PGSQL_BACKUP_SCRIPT $container:/
+    echo "Running backups:"
+    docker exec $container sh -c "/$PGSQL_BACKUP_SCRIPT_NAME $pgsql_backup_dir"
+    echo "Extracting backups from container"
+    docker cp $container:$pgsql_backup_dir $LOCAL_BACKUP_DIR/$container-$DATE
+    echo "Removing backup from container"
+    docker exec $container sh -c "rm -r $pgsql_backup_dir"
+    echo "Removing backup script from container"
+    docker exec $container rm /$PGSQL_BACKUP_SCRIPT_NAME
+  done
+}
+
 backup_mysql_containers
 backup_mongo_containers
+backup_pgsql_databases
 echo "Erasing backups over $MAX_BACKUP_AGE days:"
 find $LOCAL_BACKUP_DIR -ctime +$MAX_BACKUP_AGE -exec rm -rf {} \;

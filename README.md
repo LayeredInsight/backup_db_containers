@@ -9,7 +9,7 @@ container images:
   the supported environment variable MYSQL_ROOT_PASSWORD to set the 
   server's root password. In the future it may support other methods
   of determining mysql server authentication details.
-* Postgres
+* [Official Postgres db Docker image](https://hub.docker.com/_/postgres/)
 * [Official mongo db Docker image](https://hub.docker.com/_/mongo/)
 
 # Usage
@@ -17,7 +17,8 @@ Packaging/install scripts will be created as requested...I guess
 this could be a privilged container, but personally that doesn't
 thrill me.
 
-Copy the shell scripts in this directory to somewhere on your docker host
+Copy the shell scripts in this directory to /usr/local/bin on your
+docker host
 ```
 cp *sh /usr/local/bin
 chmod 755 /usr/local/bin/
