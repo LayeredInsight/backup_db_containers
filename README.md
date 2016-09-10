@@ -10,7 +10,7 @@ container images:
   server's root password. In the future it may support other methods
   of determining mysql server authentication details.
 * Postgres
-* Mongodb
+* [Official mongo db Docker image](https://hub.docker.com/_/mongo/)
 
 # Usage
 Packaging/install scripts will be created as requested...I guess
