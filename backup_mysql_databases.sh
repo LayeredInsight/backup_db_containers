@@ -30,6 +30,7 @@ if [ $# -gt 0 ]; then
   BACKUP_DIR=$1
 else
   echo "Usage: $0 <backup_directory>"
+  exit
 fi
 
 DATABASES=`echo "show databases" | mysql --user=root --password=$MYSQL_ROOT_PASSWORD |tail --lines=+2`
