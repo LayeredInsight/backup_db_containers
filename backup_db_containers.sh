@@ -33,7 +33,7 @@ LOCAL_BACKUP_DIR="/data01/backups"
 DATE=`date +%Y%m%d%H%M`
 
 backup_mysql_containers() {
-  # Presuming if a container has "mysql" in the name, it's...running a MySQL server.
+  # Presuming if a container has $MYSQL_CONTAINER_KEYWORD in the name, it's running a MySQL server.
   # TODO: would be nice to optionally search for containers with a mysql label.
   mysql_containers=`docker ps --filter name=$MYSQL_CONTAINER_KEYWORD --filter status=running |awk '{if(NR>1) print $NF}'`
 
@@ -54,7 +54,7 @@ backup_mysql_containers() {
 }
 
 backup_mongo_containers() {
-  # Presuming if a container has "mysql" in the name, it's...running a MySQL server.
+  # Presuming if a container has $MONGO_CONTAINER_KEYWORD in the name, it's running a mongo server.
   mongo_containers=`docker ps --filter name=$MONGO_CONTAINER_KEYWORD --filter status=running |awk '{if(NR>1) print $NF}'`
 
   for container in $mongo_containers; do
