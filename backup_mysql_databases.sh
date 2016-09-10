@@ -20,7 +20,7 @@
 # This script expects $MYSQL_ROOT_PASSWORD to contain the root
 # password for the mysql server.
 
-MYSQLHOME=/var/lib/mysql
+MYSQL_HOME=/var/lib/mysql
 MYSQLDUMP=/usr/bin/mysqldump
 MYSQLUSER=root
 DUMP_OPTIONS="-u $MYSQLUSER --password=$MYSQL_ROOT_PASSWORD --opt --compress --single-transaction"
