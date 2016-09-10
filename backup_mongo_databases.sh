@@ -18,8 +18,6 @@
 ###
 
 MONGODUMP=/usr/bin/mongodump
-MYSQLUSER=root
-DATE=`date +%Y-%m-%d`
 
 if [ $# -gt 0 ]; then
   BACKUP_DIR=$1
