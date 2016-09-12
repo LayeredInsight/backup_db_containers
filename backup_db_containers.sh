@@ -101,6 +101,6 @@ backup_pgsql_containers() {
 
 backup_mysql_containers
 backup_mongo_containers
-backup_pgsql_databases
+backup_pgsql_containers
 echo "Erasing backups over $MAX_BACKUP_AGE days:"
 find $LOCAL_BACKUP_DIR -ctime +$MAX_BACKUP_AGE -exec rm -rf {} \;
